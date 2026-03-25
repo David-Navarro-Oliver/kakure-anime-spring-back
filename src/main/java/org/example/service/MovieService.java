@@ -20,6 +20,10 @@ public class MovieService {
         return movieRepository.findAll();
     }
 
+    public Movie getMovieById(int id) {
+        return movieRepository.findById(id).orElse(null);
+    }
+
     public Movie addMovie(Movie newMovie) {
         return movieRepository.save(newMovie);
     }
