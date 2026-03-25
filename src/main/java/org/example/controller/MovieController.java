@@ -20,6 +20,11 @@ public class MovieController {
         return movieService.getAll();
     }
 
+    @GetMapping("/movies/{id}")
+    public Movie getMovieById(@PathVariable int id) {
+        return movieService.getMovieById(id);
+    }
+
     @PostMapping("/movies")
     public Movie createMovie(@RequestBody Movie newMovie) {
         return movieService.addMovie(newMovie);
