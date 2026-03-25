@@ -28,6 +28,25 @@ public class MovieService {
         return movieRepository.save(newMovie);
     }
 
+    public Movie updateMovie(int id, Movie updatedMovie) {
+        Movie existingMovie = movieRepository.findById(id).orElse(null);
+
+        if (existingMovie == null) {
+            return null;
+        }
+
+        existingMovie.setTitle(updatedMovie.getTitle());
+        existingMovie.setYear(updatedMovie.getYear());
+        existingMovie.setDuration(updatedMovie.getDuration());
+        existingMovie.setGenre(updatedMovie.getGenre());
+        existingMovie.setStudio(updatedMovie.getStudio());
+        existingMovie.setRating(updatedMovie.getRating());
+        existingMovie.setPoster(updatedMovie.getPoster());
+        existingMovie.setSynopsis(updatedMovie.getSynopsis());
+
+        return movieRepository.save(existingMovie);
+    }
+
     public void deleteMovie(int id) {
         movieRepository.deleteById(id);
     }
