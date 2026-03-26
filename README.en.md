@@ -44,7 +44,10 @@ Main backend flow:
 
 ```text
 docs
+├── badges
+│   └── jacoco-coverage.svg
 └── screenshots
+    ├── CoberturaKABS.png
     ├── CRUDpostmanKABS.png
     └── CRUDreactKAF.png
 
@@ -67,10 +70,19 @@ src
 │       ├── static
 │       └── templates
 └── test
-    └── java
-        └── org
-            └── example
-                └── KakureAnimeSpringBackApplicationTests.java
+    ├── java
+    │   └── org
+    │       └── example
+    │           ├── controller
+    │           │   └── MovieControllerTest.java
+    │           ├── repository
+    │           │   └── MovieRepositoryIntegrationTest.java
+    │           ├── service
+    │           │   └── MovieServiceTest.java
+    │           ├── KakureAnimeSpringBackApplicationMainTest.java
+    │           └── KakureAnimeSpringBackApplicationTests.java
+    └── resources
+        └── application-test.properties
 ```
 
 ## ⚙️ Technologies
@@ -80,6 +92,8 @@ src
 ![Maven](https://img.shields.io/badge/Maven-Build-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white)
 ![Postman](https://img.shields.io/badge/Postman-Testing-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
 ![React](https://img.shields.io/badge/React-Frontend%20Integration-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![H2](https://img.shields.io/badge/H2-Test%20Database-1E88E5?style=for-the-badge)
+![JaCoCo](https://img.shields.io/badge/JaCoCo-Coverage-C62828?style=for-the-badge)
 
 - `Java 25`: base language and version configured in Maven.
 - `Spring Boot 4.0.4`: application bootstrap, auto-configuration, and web layer.
@@ -88,6 +102,8 @@ src
 - `Maven`: dependency management and project build tool.
 - `Postman`: manual endpoint validation and CRUD testing.
 - `React frontend integration`: real client consumption of the backend API.
+- `H2`: in-memory database used for integration tests.
+- `JaCoCo`: automated coverage report generation.
 
 ## 🧠 Data Model
 ![Movie Entity](https://img.shields.io/badge/Entity-Movie-E53935?style=for-the-badge)
@@ -171,7 +187,7 @@ The backend has been validated through real usage scenarios and technical checks
 ![JaCoCo](https://img.shields.io/badge/JaCoCo-Coverage-C62828?style=for-the-badge)
 ![Coverage](docs/badges/jacoco-coverage.svg)
 
-The project includes an automated testing strategy designed to validate the real backend behavior without changing its business logic. The suite combines context, unit, web layer, and in-memory database integration tests to cover the full CRUD flow.
+The project includes an automated testing strategy designed to validate the real backend behavior without changing its business logic. The suite combines context, unit, web layer, and in-memory database integration tests to cover the full CRUD flow, and coverage is generated automatically with JaCoCo.
 
 Implemented test types:
 
@@ -209,6 +225,11 @@ Coverage from the latest local report:
 - `100%` instruction coverage
 - `100%` branch coverage
 - `100%` line coverage
+
+### Coverage report preview
+Screenshot of the JaCoCo HTML report generated after the latest local `mvn verify` run.
+
+![JaCoCo coverage report](docs/screenshots/CoberturaKABS.png)
 
 ## 📸 Screenshots
 ![Frontend Screenshot](https://img.shields.io/badge/Capture-React%20Frontend-61DAFB?style=for-the-badge&logo=react&logoColor=black)
@@ -255,6 +276,7 @@ Verification of the backend REST methods with successful responses and `200 OK` 
 ![React Integration](https://img.shields.io/badge/React-Integrated-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 
 The project is functional and currently supports a complete movie CRUD, MySQL persistence, React frontend integration, and Postman-based validation.
+It also includes an automated test suite with coverage generated through JaCoCo.
 
 ## 👨‍💻 Author
 ![Author](https://img.shields.io/badge/Author-David%20Navarro-1F4B99?style=for-the-badge)

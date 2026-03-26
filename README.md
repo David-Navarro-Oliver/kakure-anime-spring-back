@@ -44,7 +44,10 @@ Flujo principal del backend:
 
 ```text
 docs
+├── badges
+│   └── jacoco-coverage.svg
 └── screenshots
+    ├── CoberturaKABS.png
     ├── CRUDpostmanKABS.png
     └── CRUDreactKAF.png
 
@@ -67,10 +70,19 @@ src
 │       ├── static
 │       └── templates
 └── test
-    └── java
-        └── org
-            └── example
-                └── KakureAnimeSpringBackApplicationTests.java
+    ├── java
+    │   └── org
+    │       └── example
+    │           ├── controller
+    │           │   └── MovieControllerTest.java
+    │           ├── repository
+    │           │   └── MovieRepositoryIntegrationTest.java
+    │           ├── service
+    │           │   └── MovieServiceTest.java
+    │           ├── KakureAnimeSpringBackApplicationMainTest.java
+    │           └── KakureAnimeSpringBackApplicationTests.java
+    └── resources
+        └── application-test.properties
 ```
 
 ## ⚙️ Tecnologías
@@ -80,6 +92,8 @@ src
 ![Maven](https://img.shields.io/badge/Maven-Build-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white)
 ![Postman](https://img.shields.io/badge/Postman-Testing-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
 ![React](https://img.shields.io/badge/React-Frontend%20Integration-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![H2](https://img.shields.io/badge/H2-Test%20Database-1E88E5?style=for-the-badge)
+![JaCoCo](https://img.shields.io/badge/JaCoCo-Coverage-C62828?style=for-the-badge)
 
 - `Java 25`: lenguaje base del proyecto y versión configurada en Maven.
 - `Spring Boot 4.0.4`: arranque de la aplicación, configuración automática y capa web.
@@ -88,6 +102,8 @@ src
 - `Maven`: gestión de dependencias y construcción del proyecto.
 - `Postman`: validación manual de endpoints y respuestas del CRUD.
 - `Integración con frontend React`: consumo real del backend desde la interfaz cliente.
+- `H2`: base de datos en memoria utilizada en los tests de integración.
+- `JaCoCo`: generación del reporte de cobertura automatizado.
 
 ## 🧠 Modelo de datos
 ![Movie Entity](https://img.shields.io/badge/Entity-Movie-E53935?style=for-the-badge)
@@ -171,7 +187,7 @@ El backend se ha comprobado en escenarios reales de uso y validación técnica:
 ![JaCoCo](https://img.shields.io/badge/JaCoCo-Coverage-C62828?style=for-the-badge)
 ![Coverage](docs/badges/jacoco-coverage.svg)
 
-El proyecto cuenta con una estrategia automatizada de tests orientada a cubrir el comportamiento real del backend sin alterar su lógica. La suite combina pruebas de contexto, unitarias, de capa web e integración con base de datos en memoria para validar el flujo completo del CRUD.
+El proyecto cuenta con una estrategia automatizada de tests orientada a cubrir el comportamiento real del backend sin alterar su lógica. La suite combina pruebas de contexto, unitarias, de capa web e integración con base de datos en memoria para validar el flujo completo del CRUD, y la cobertura se genera de forma automática con JaCoCo.
 
 Tipos de tests implementados:
 
@@ -209,6 +225,11 @@ Cobertura del último reporte generado en local:
 - `100%` de instrucciones
 - `100%` de ramas
 - `100%` de líneas
+
+### Vista del reporte de cobertura
+Captura del informe HTML de JaCoCo generado tras la última ejecución local de `mvn verify`.
+
+![Reporte de cobertura JaCoCo](docs/screenshots/CoberturaKABS.png)
 
 ## 📸 Capturas
 ![Frontend Screenshot](https://img.shields.io/badge/Capture-React%20Frontend-61DAFB?style=for-the-badge&logo=react&logoColor=black)
@@ -255,6 +276,7 @@ Comprobación de los distintos métodos REST del backend con respuestas correcta
 ![React Integration](https://img.shields.io/badge/React-Integrated-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 
 El proyecto se encuentra operativo y actualmente soporta un CRUD completo de películas, persistencia en MySQL, integración con frontend React y validación funcional mediante Postman.
+También incluye una suite automatizada de tests con cobertura generada mediante JaCoCo.
 
 ## 👨‍💻 Autor
 ![Autor](https://img.shields.io/badge/Autor-David%20Navarro-1F4B99?style=for-the-badge)
