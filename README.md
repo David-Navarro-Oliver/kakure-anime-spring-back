@@ -163,6 +163,53 @@ El backend se ha comprobado en escenarios reales de uso y validación técnica:
 - arranque correcto de Spring Boot con conexión activa a MySQL
 - prueba de contexto incluida en `KakureAnimeSpringBackApplicationTests`
 
+## 🧪 Tests y cobertura
+![JUnit Jupiter](https://img.shields.io/badge/JUnit%20Jupiter-Automated%20Tests-25A162?style=for-the-badge)
+![Mockito](https://img.shields.io/badge/Mockito-Unit%20Testing-6A1B9A?style=for-the-badge)
+![MockMvc](https://img.shields.io/badge/MockMvc-Web%20Layer-0A66C2?style=for-the-badge)
+![H2](https://img.shields.io/badge/H2-In%20Memory%20DB-1E88E5?style=for-the-badge)
+![JaCoCo](https://img.shields.io/badge/JaCoCo-Coverage-C62828?style=for-the-badge)
+![Coverage](docs/badges/jacoco-coverage.svg)
+
+El proyecto cuenta con una estrategia automatizada de tests orientada a cubrir el comportamiento real del backend sin alterar su lógica. La suite combina pruebas de contexto, unitarias, de capa web e integración con base de datos en memoria para validar el flujo completo del CRUD.
+
+Tipos de tests implementados:
+
+- `KakureAnimeSpringBackApplicationTests`: verifica la carga del contexto Spring Boot usando el perfil `test`.
+- `KakureAnimeSpringBackApplicationMainTest`: comprueba que el punto de entrada delega correctamente en `SpringApplication.run`.
+- `MovieServiceTest`: tests unitarios del servicio con Mockito y repositorio mockeado.
+- `MovieControllerTest`: tests de la capa web con `@WebMvcTest`, `MockMvc` y `@MockitoBean`.
+- `MovieRepositoryIntegrationTest`: prueba de persistencia real con JPA y H2 en memoria.
+
+Herramientas utilizadas:
+
+- `JUnit Jupiter`
+- `Mockito`
+- `MockMvc`
+- `H2`
+- `JaCoCo`
+- `Maven`
+
+Comandos principales:
+
+```bash
+mvn test
+mvn verify
+```
+
+Dónde consultar la cobertura:
+
+- reporte HTML: `target/site/jacoco/index.html`
+- reporte XML: `target/site/jacoco/jacoco.xml`
+- reporte CSV: `target/site/jacoco/jacoco.csv`
+- recurso visual reutilizable: `docs/badges/jacoco-coverage.svg`
+
+Cobertura del último reporte generado en local:
+
+- `100%` de instrucciones
+- `100%` de ramas
+- `100%` de líneas
+
 ## 📸 Capturas
 ![Frontend Screenshot](https://img.shields.io/badge/Capture-React%20Frontend-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 ![Postman Screenshot](https://img.shields.io/badge/Capture-Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)

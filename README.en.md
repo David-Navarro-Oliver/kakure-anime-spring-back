@@ -163,6 +163,53 @@ The backend has been validated through real usage scenarios and technical checks
 - successful Spring Boot startup with active MySQL connectivity
 - context loading test included in `KakureAnimeSpringBackApplicationTests`
 
+## 🧪 Tests and Coverage
+![JUnit Jupiter](https://img.shields.io/badge/JUnit%20Jupiter-Automated%20Tests-25A162?style=for-the-badge)
+![Mockito](https://img.shields.io/badge/Mockito-Unit%20Testing-6A1B9A?style=for-the-badge)
+![MockMvc](https://img.shields.io/badge/MockMvc-Web%20Layer-0A66C2?style=for-the-badge)
+![H2](https://img.shields.io/badge/H2-In%20Memory%20DB-1E88E5?style=for-the-badge)
+![JaCoCo](https://img.shields.io/badge/JaCoCo-Coverage-C62828?style=for-the-badge)
+![Coverage](docs/badges/jacoco-coverage.svg)
+
+The project includes an automated testing strategy designed to validate the real backend behavior without changing its business logic. The suite combines context, unit, web layer, and in-memory database integration tests to cover the full CRUD flow.
+
+Implemented test types:
+
+- `KakureAnimeSpringBackApplicationTests`: verifies Spring Boot context loading with the `test` profile.
+- `KakureAnimeSpringBackApplicationMainTest`: checks that the application entry point delegates correctly to `SpringApplication.run`.
+- `MovieServiceTest`: unit tests for the service layer using Mockito and a mocked repository.
+- `MovieControllerTest`: web layer tests with `@WebMvcTest`, `MockMvc`, and `@MockitoBean`.
+- `MovieRepositoryIntegrationTest`: real persistence test using JPA and in-memory H2.
+
+Tools used:
+
+- `JUnit Jupiter`
+- `Mockito`
+- `MockMvc`
+- `H2`
+- `JaCoCo`
+- `Maven`
+
+Main commands:
+
+```bash
+mvn test
+mvn verify
+```
+
+Where to review coverage:
+
+- HTML report: `target/site/jacoco/index.html`
+- XML report: `target/site/jacoco/jacoco.xml`
+- CSV report: `target/site/jacoco/jacoco.csv`
+- reusable visual asset: `docs/badges/jacoco-coverage.svg`
+
+Coverage from the latest local report:
+
+- `100%` instruction coverage
+- `100%` branch coverage
+- `100%` line coverage
+
 ## 📸 Screenshots
 ![Frontend Screenshot](https://img.shields.io/badge/Capture-React%20Frontend-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 ![Postman Screenshot](https://img.shields.io/badge/Capture-Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
