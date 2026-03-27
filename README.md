@@ -130,9 +130,9 @@ La entidad principal del backend es `Movie`, mapeada con JPA sobre la tabla `mov
 ![CRUD Routes](https://img.shields.io/badge/Routes-CRUD-2E8B57?style=for-the-badge)
 
 - `GET /movies`: devuelve el listado completo de películas.
-- `GET /movies/{id}`: recupera una película concreta a partir de su identificador.
+- `GET /movies/{id}`: recupera una película concreta a partir de su identificador y devuelve `404 Not Found` si no existe.
 - `POST /movies`: crea una nueva película en la base de datos.
-- `PUT /movies/{id}`: actualiza los datos de una película existente.
+- `PUT /movies/{id}`: actualiza los datos de una película existente y devuelve `404 Not Found` si no existe.
 - `DELETE /movies/{id}`: elimina una película por su identificador.
 - `GET /movies/asc`: devuelve las películas ordenadas de forma ascendente por `title`.
 

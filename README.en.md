@@ -130,9 +130,9 @@ The core entity of the backend is `Movie`, mapped with JPA to the `movies` table
 ![CRUD Routes](https://img.shields.io/badge/Routes-CRUD-2E8B57?style=for-the-badge)
 
 - `GET /movies`: returns the full movie list.
-- `GET /movies/{id}`: retrieves a single movie by identifier.
+- `GET /movies/{id}`: retrieves a single movie by identifier and returns `404 Not Found` when it does not exist.
 - `POST /movies`: creates a new movie entry in the database.
-- `PUT /movies/{id}`: updates an existing movie.
+- `PUT /movies/{id}`: updates an existing movie and returns `404 Not Found` when it does not exist.
 - `DELETE /movies/{id}`: removes a movie by identifier.
 - `GET /movies/asc`: returns the movies sorted ascending by `title`.
 
