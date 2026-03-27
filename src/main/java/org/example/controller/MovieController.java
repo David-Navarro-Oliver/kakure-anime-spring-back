@@ -2,6 +2,8 @@ package org.example.controller;
 
 import org.example.model.Movie;
 import org.example.service.MovieService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,8 +24,10 @@ public class MovieController {
     }
 
     @GetMapping("/movies/{id}")
-    public Movie getMovieById(@PathVariable int id) {
-        return movieService.getMovieById(id);
+    public ResponseEntity<Movie> getMovieById(@PathVariable int id) {
+        return movieService.getMovieById(id)
+                .map(movie -> new ResponseEntity<>(movie, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("/movies")
@@ -32,13 +36,16 @@ public class MovieController {
     }
 
     @PutMapping("/movies/{id}")
-    public Movie updateMovieById(@PathVariable int id, @RequestBody Movie updatedMovie) {
-        return movieService.updateMovie(id, updatedMovie);
+    public ResponseEntity<Movie> updateMovieById(@PathVariable int id, @RequestBody Movie updatedMovie) {
+        return movieService.updateMovie(id, updatedMovie)
+                .map(movie -> new ResponseEntity<>(movie, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping("/movies/{id}")
-    public void deleteMovieById(@PathVariable int id) {
+    public ResponseEntity<Void> deleteMovieById(@PathVariable int id) {
         movieService.deleteMovie(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/movies/asc")
