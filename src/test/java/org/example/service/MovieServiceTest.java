@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.never;
@@ -47,25 +46,26 @@ class MovieServiceTest {
     }
 
     @Test
-    void getMovieByIdShouldReturnMovieWhenItExists() {
+    void getMovieByIdShouldReturnOptionalWithMovieWhenItExists() {
         Movie movie = buildMovie(1, "Princess Mononoke", 1997, 134, "Fantasy", "Studio Ghibli", 8.4, "mononoke.jpg", "A conflict between nature and industry.");
 
         when(movieRepository.findById(1)).thenReturn(Optional.of(movie));
 
-        Movie result = movieService.getMovieById(1);
+        Optional<Movie> result = movieService.getMovieById(1);
 
-        assertSame(movie, result);
-        assertEquals(1, result.getId());
+        assertTrue(result.isPresent());
+        assertSame(movie, result.orElseThrow());
+        assertEquals(1, result.orElseThrow().getId());
         verify(movieRepository).findById(1);
     }
 
     @Test
-    void getMovieByIdShouldReturnNullWhenItDoesNotExist() {
+    void getMovieByIdShouldReturnEmptyOptionalWhenItDoesNotExist() {
         when(movieRepository.findById(99)).thenReturn(Optional.empty());
 
-        Movie result = movieService.getMovieById(99);
+        Optional<Movie> result = movieService.getMovieById(99);
 
-        assertNull(result);
+        assertTrue(result.isEmpty());
         verify(movieRepository).findById(99);
     }
 
@@ -93,40 +93,41 @@ class MovieServiceTest {
     }
 
     @Test
-    void updateMovieShouldUpdateAndSaveMovieWhenItExists() {
+    void updateMovieShouldReturnUpdatedMovieWhenItExists() {
         Movie existingMovie = buildMovie(5, "Old Title", 1990, 90, "Drama", "Old Studio", 6.5, "old.jpg", "Old synopsis.");
         Movie updatedMovie = buildMovie(0, "Perfect Blue", 1997, 81, "Thriller", "Madhouse", 8.0, "perfect-blue.jpg", "A singer faces a dark spiral.");
 
         when(movieRepository.findById(5)).thenReturn(Optional.of(existingMovie));
         when(movieRepository.save(existingMovie)).thenReturn(existingMovie);
 
-        Movie result = movieService.updateMovie(5, updatedMovie);
+        Optional<Movie> result = movieService.updateMovie(5, updatedMovie);
 
-        assertSame(existingMovie, result);
-        assertEquals("Perfect Blue", result.getTitle());
-        assertEquals(1997, result.getYear());
-        assertEquals(81, result.getDuration());
-        assertEquals("Thriller", result.getGenre());
-        assertEquals("Madhouse", result.getStudio());
-        assertEquals(8.0, result.getRating());
-        assertEquals("perfect-blue.jpg", result.getPoster());
-        assertEquals("A singer faces a dark spiral.", result.getSynopsis());
+        assertTrue(result.isPresent());
+        assertSame(existingMovie, result.orElseThrow());
+        assertEquals("Perfect Blue", result.orElseThrow().getTitle());
+        assertEquals(1997, result.orElseThrow().getYear());
+        assertEquals(81, result.orElseThrow().getDuration());
+        assertEquals("Thriller", result.orElseThrow().getGenre());
+        assertEquals("Madhouse", result.orElseThrow().getStudio());
+        assertEquals(8.0, result.orElseThrow().getRating());
+        assertEquals("perfect-blue.jpg", result.orElseThrow().getPoster());
+        assertEquals("A singer faces a dark spiral.", result.orElseThrow().getSynopsis());
 
         verify(movieRepository).findById(5);
         verify(movieRepository).save(existingMovie);
     }
 
     @Test
-    void updateMovieShouldReturnNullWhenMovieDoesNotExist() {
+    void updateMovieShouldReturnEmptyOptionalWhenMovieDoesNotExist() {
         Movie updatedMovie = buildMovie(0, "Paprika", 2006, 90, "Sci-Fi", "Madhouse", 7.7, "paprika.jpg", "Dreams start to merge with reality.");
 
         when(movieRepository.findById(7)).thenReturn(Optional.empty());
 
-        Movie result = movieService.updateMovie(7, updatedMovie);
+        Optional<Movie> result = movieService.updateMovie(7, updatedMovie);
 
-        assertNull(result);
+        assertTrue(result.isEmpty());
         verify(movieRepository).findById(7);
-        verify(movieRepository, never()).save(updatedMovie);
+        verify(movieRepository, never()).save(org.mockito.ArgumentMatchers.any(Movie.class));
     }
 
     @Test
