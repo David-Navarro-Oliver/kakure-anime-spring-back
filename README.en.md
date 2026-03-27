@@ -189,6 +189,8 @@ The backend has been validated through real usage scenarios and technical checks
 
 The project includes an automated testing strategy designed to validate the real backend behavior without changing its business logic. The suite combines context, unit, web layer, and in-memory database integration tests to cover the full CRUD flow, and coverage is generated automatically with JaCoCo.
 
+In the latest validated local run, Maven executed `20 tests` and all of them passed successfully.
+
 Implemented test types:
 
 - `KakureAnimeSpringBackApplicationTests`: verifies Spring Boot context loading with the `test` profile.
@@ -223,7 +225,7 @@ Where to review coverage:
 Coverage from the latest local report:
 
 - `100%` instruction coverage
-- `100%` branch coverage
+- `n/a` branch coverage in the current JaCoCo report
 - `100%` line coverage
 
 ### Coverage report preview
