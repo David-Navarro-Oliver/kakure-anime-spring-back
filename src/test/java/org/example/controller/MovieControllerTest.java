@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import tools.jackson.databind.ObjectMapper;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
@@ -60,7 +61,7 @@ class MovieControllerTest {
     void getMovieByIdShouldReturnMovie() throws Exception {
         Movie movie = buildMovie(3, "Perfect Blue", 1997, 81, "Thriller", "Madhouse", 8.0, "perfect-blue.jpg", "A singer faces a dark spiral.");
 
-        when(movieService.getMovieById(3)).thenReturn(movie);
+        when(movieService.getMovieById(3)).thenReturn(Optional.of(movie));
 
         mockMvc.perform(get("/movies/{id}", 3))
                 .andExpect(status().isOk())
@@ -70,6 +71,17 @@ class MovieControllerTest {
                 .andExpect(jsonPath("$.genre").value("Thriller"));
 
         verify(movieService).getMovieById(3);
+    }
+
+    @Test
+    void getMovieByIdShouldReturnNotFoundWhenMovieDoesNotExist() throws Exception {
+        when(movieService.getMovieById(99)).thenReturn(Optional.empty());
+
+        mockMvc.perform(get("/movies/{id}", 99))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string(""));
+
+        verify(movieService).getMovieById(99);
     }
 
     @Test
@@ -97,7 +109,7 @@ class MovieControllerTest {
         Movie updatedMovie = buildMovie(5, "Princess Mononoke", 1997, 134, "Fantasy", "Studio Ghibli", 8.4, "mononoke.jpg", "A conflict between nature and industry.");
 
         when(movieService.updateMovie(org.mockito.ArgumentMatchers.eq(5), org.mockito.ArgumentMatchers.any(Movie.class)))
-                .thenReturn(updatedMovie);
+                .thenReturn(Optional.of(updatedMovie));
 
         mockMvc.perform(put("/movies/{id}", 5)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -109,6 +121,22 @@ class MovieControllerTest {
                 .andExpect(jsonPath("$.year").value(1997));
 
         verify(movieService).updateMovie(org.mockito.ArgumentMatchers.eq(5), org.mockito.ArgumentMatchers.any(Movie.class));
+    }
+
+    @Test
+    void putMovieShouldReturnNotFoundWhenMovieDoesNotExist() throws Exception {
+        Movie requestMovie = new Movie("Paprika", 2006, 90, "Sci-Fi", "Madhouse", 7.7, "paprika.jpg", "Dreams start to merge with reality.");
+
+        when(movieService.updateMovie(org.mockito.ArgumentMatchers.eq(77), org.mockito.ArgumentMatchers.any(Movie.class)))
+                .thenReturn(Optional.empty());
+
+        mockMvc.perform(put("/movies/{id}", 77)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestMovie)))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string(""));
+
+        verify(movieService).updateMovie(org.mockito.ArgumentMatchers.eq(77), org.mockito.ArgumentMatchers.any(Movie.class));
     }
 
     @Test
